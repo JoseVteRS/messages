@@ -1,0 +1,23 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-2 rounded-xl;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-zinc-800 rounded-xl;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700 rounded;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-600;
+}
