@@ -8,6 +8,12 @@ export const chatReducer = (state, action) => {
         messages: [...state.messages, action.payload],
       };
 
+    case TYPES.resetMessages:
+      return {
+        ...state,
+        messages: [],
+      };
+
     default:
       state;
   }

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect } from "react";
 import { useSocket } from "../hooks/use-socket";
+import { TYPES } from "../lib/types/action.types";
 import { ChatContext } from "./chat-context";
 
 export const SocketContext = createContext();
@@ -17,8 +18,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     socket?.on("one_to_all", (message) => {
-      console.log(message);
-      dispatch({
+      chatDispatch({
         type: TYPES.newMessage,
         payload: message,
       });

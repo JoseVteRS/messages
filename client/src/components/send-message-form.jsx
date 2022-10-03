@@ -1,17 +1,18 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { ChatContext } from "../context/chat-context";
+import { SocketContext } from "../context/socket-context";
 import SendIcon from "./icons/send-icon";
 
 const SendMessageForm = () => {
-  const { sendMessage } = useContext(ChatContext);
+  const { chatDispatch } = useContext(ChatContext);
+  const { socket } = useContext(SocketContext);
 
   const { handleSubmit, register, reset } = useForm();
 
   const handleOnSubmit = (data) => {
     if (data.message.length === 0) return;
-
-    sendMessage(data.message);
+    socket?.emit("one_to_all", data.message);
     reset({ message: "" });
   };
 
