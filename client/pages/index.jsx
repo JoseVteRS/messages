@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 
 import ResetIcon from "../src/components/icons/reset-messages";
 
@@ -17,12 +17,30 @@ export default function Home() {
     chatDispatch({ type: TYPES.resetMessages });
   };
 
+  const handleKeyPress = useCallback((event) => {
+    if (event.ctrlKey && event.altKey && event.which === 82) {
+      chatDispatch({ type: TYPES.resetMessages });
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+    return () => document.removeEventListener("keydown", handleKeyPress);
+  }, [handleKeyPress]);
+
   return (
     <div className="p-5 bg-zinc-900 min-h-screen">
       <div className="mx-auto md:w-1/3 overflow-y-scroll bg-neutral-700/20 p-3 rounded-2xl h-[90vh]">
         <button onClick={onHandleReset}>
           <ResetIcon className="stroke-zinc-200 h-5 w-5" />
         </button>
+
+        <div className="text-white my-5 text-xs border-b border-zinc-700 pb-3 hidden md:inline-block">
+          Empty chat:
+          <code className="bg-neutral-700 rounded-md inline-block p-1 mx-2">
+            <pre>ctrl + alt + r</pre>
+          </code>
+        </div>
 
         {chatState.messages.length === 0 && <StartGameInfo />}
 

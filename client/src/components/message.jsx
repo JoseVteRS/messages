@@ -1,8 +1,13 @@
 import clsx from "clsx";
 
 const Message = ({ message, socketId }) => {
+  const handleOnClickMessage = () => {
+    console.log(message.id);
+  };
+
   return (
     <div
+      onClick={handleOnClickMessage}
       className={clsx(
         socketId === message.id ? "justify-end" : "justify-start",
         "flex"
@@ -10,8 +15,8 @@ const Message = ({ message, socketId }) => {
     >
       <p
         className={clsx(
-          socketId === message.id ? "bg-neutral-900" : "bg-neutral-800",
-          "rounded-xl max-w-xs p-2 my-1 text-zinc-200 shadow text-sm"
+          socketId === message.id ? "bg-red-900" : "bg-neutral-900",
+          "rounded-lg max-w-xs p-2 my-1 text-zinc-200 shadow text-sm"
         )}
       >
         {message.message}
