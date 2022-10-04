@@ -38,8 +38,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleOneToAllRoomMessage(client: Socket, payload: any) {}
 
   @SubscribeMessage(ACTION.CREATE_ROOM)
-  handleCreateRoom(client: Socket, payload: any) {}
+  handleCreateRoom(client: Socket, roomName: string) {
+    client.join(roomName);
+  }
 
   @SubscribeMessage(ACTION.DELETE_ROOM)
-  handleDeleteRoomMessage(client: Socket, payload: any) {}
+  handleDeleteRoomMessage(client: Socket, roomName: string) {
+    client.leave(roomName);
+  }
 }
