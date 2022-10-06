@@ -25,6 +25,10 @@ export const SocketProvider = ({ children }) => {
     });
   }, [socket, chatDispatch]);
 
+  useEffect(() => {
+    socket?.emit("create_room", "test");
+  }, [socket]);
+
   return (
     <SocketContext.Provider
       value={{

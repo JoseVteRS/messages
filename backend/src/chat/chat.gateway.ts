@@ -1,3 +1,4 @@
+import { RedisService } from '@liaoliaots/nestjs-redis';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -12,13 +13,16 @@ import { ACTION } from './enums/actions.enum';
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() wss: Server;
 
-  constructor() {}
+  constructor(private readonly redis: RedisService) {}
 
-  handleConnection(client: Socket) {
+  handleConnection(client: Socket, payload: any) {
+    client.broadcast.emit('user_connected', 'hola');
+    this.redis.getClient().set(`user-socket--${client.id}`, client.id);
     console.log(`Client with ${client.id} ID has been connected`);
   }
 
   handleDisconnect(client: Socket) {
+    this.redis.getClient().del(`user-socket--${client.id}`);
     console.log(`Client with ${client.id} ID has been disconnected`);
   }
 
@@ -40,6 +44,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage(ACTION.CREATE_ROOM)
   handleCreateRoom(client: Socket, roomName: string) {
     client.join(roomName);
+    console.log(`Room created CREATE_ROOM with name ${roomName}`);
   }
 
   @SubscribeMessage(ACTION.DELETE_ROOM)

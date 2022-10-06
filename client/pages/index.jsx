@@ -1,7 +1,5 @@
 import { useCallback, useContext, useEffect } from "react";
-
 import ResetIcon from "../src/components/icons/reset-messages";
-
 import Message from "../src/components/message";
 import SendMessageForm from "../src/components/send-message-form";
 import StartGameInfo from "../src/components/start-game";
@@ -29,7 +27,7 @@ export default function Home() {
   }, [handleKeyPress]);
 
   return (
-    <div className="p-5 bg-zinc-900 min-h-screen">
+    <div className="md:p-5 bg-zinc-900 min-h-screen">
       <div className="mx-auto md:w-1/3 overflow-y-scroll bg-neutral-700/20 p-3 rounded-2xl h-[90vh]">
         <button onClick={onHandleReset}>
           <ResetIcon className="stroke-zinc-200 h-5 w-5" />

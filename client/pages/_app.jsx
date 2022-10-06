@@ -1,3 +1,4 @@
+import "react-modern-drawer/dist/index.css";
 import { ChatProvider } from "../src/context/chat-context";
 import { SocketProvider } from "../src/context/socket-context";
 import "../styles/globals.css";

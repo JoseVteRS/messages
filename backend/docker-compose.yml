@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  redis-main:
+    container_name: redis-nest
+    image: redis:latest
+    ports:
+      - 6379:6379
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - redis-volume:/data/redis
+    networks:
+      - redis-network
+      - main-network
+    restart: unless-stopped
+
+  redis-commander:
+    container_name: redis-commander-nest
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis-main:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=qwerty
+    ports:
+      - 8082:8081
+    depends_on:
+      - redis-main
+    networks:
+      - redis-network
+    restart: unless-stopped
+
+networks:
+  main-network:
+    driver: bridge
+  redis-network:
+    driver: bridge
+
+volumes:
+  pgadmin-volume:
+  redis-volume:
