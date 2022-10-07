@@ -1,0 +1,7 @@
+export enum EnvEnum {
+  PORT = 'PORT',
+  MONGODB_URI = 'MONGODB_URI',
+  DB_NAME = 'DB_NAME',
+  HASH_SALT = 'HASH_SALT',
+  JWT_SECRET = 'JWT_SECRET',
+}

@@ -2,6 +2,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { UserModule } from './user/user.module';
 @Module({
@@ -21,6 +22,7 @@ import { UserModule } from './user/user.module';
         password: 'qwerty',
       },
     }),
+    AuthModule,
     UserModule,
     ChatModule,
   ],
